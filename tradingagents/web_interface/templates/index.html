@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TradingAgents - 自动化交易系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-robot me-2"></i>TradingAgents
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard">
+                            <i class="fas fa-tachometer-alt me-1"></i>仪表板
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/trading">
+                            <i class="fas fa-exchange-alt me-1"></i>交易
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/risk">
+                            <i class="fas fa-shield-alt me-1"></i>风险管理
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/analysis">
+                            <i class="fas fa-chart-line me-1"></i>技术分析
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/settings">
+                            <i class="fas fa-cog me-1"></i>设置
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <span class="navbar-text me-3" id="connection-status">
+                            <i class="fas fa-circle text-success me-1"></i>已连接
+                        </span>
+                    </li>
+                    <li class="nav-item">
+                        <span class="navbar-text">
+                            <i class="fas fa-clock me-1"></i>
+                            <span id="current-time">{{ moment().format('YYYY-MM-DD HH:mm:ss') }}</span>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 欢迎页面 -->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="display-4">
+                    <i class="fas fa-robot text-primary me-3"></i>
+                    TradingAgents 自动化交易系统
+                </h1>
+                <p class="lead mt-4">
+                    基于多智能体LLM框架的智能交易解决方案
+                </p>
+                <p class="text-muted">
+                    集成真实经纪商API、先进技术分析、实时风险控制，为您提供专业的自动化交易体验
+                </p>
+            </div>
+        </div>
+
+        <!-- 核心特性 -->
+        <div class="row mt-5">
+            <div class="col-md-4 text-center">
+                <div class="feature-card">
+                    <i class="fas fa-brain feature-icon text-primary"></i>
+                    <h4>多智能体协作</h4>
+                    <p class="text-muted">
+                        分析师、研究员、交易员、风险管理团队协同工作，做出明智的投资决策
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="feature-card">
+                    <i class="fas fa-chart-line feature-icon text-success"></i>
+                    <h4>高级技术分析</h4>
+                    <p class="text-muted">
+                        集成多种技术指标和分析方法，为交易决策提供有力支持
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt feature-icon text-warning"></i>
+                    <h4>实时风险控制</h4>
+                    <p class="text-muted">
+                        多层次风险管理系统，保护您的投资组合安全
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 状态概览 -->
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-chart-pie me-2"></i>投资组合概览</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-6">
+                                <h3 class="text-primary" id="portfolio-value">¥100,000.00</h3>
+                                <small class="text-muted">总价值</small>
+                            </div>
+                            <div class="col-6">
+                                <h4 class="text-success" id="daily-pnl">+¥0.00</h4>
+                                <small class="text-muted">今日盈亏</small>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <div class="d-flex justify-content-between">
+                                <span>持仓数量:</span>
+                                <span id="positions-count">0</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span>订单数量:</span>
+                                <span id="orders-count">0</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span>预警数量:</span>
+                                <span id="alerts-count">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-exchange-alt me-2"></i>系统状态</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="status-indicator bg-success me-3"></div>
+                            <div>
+                                <h6 class="mb-0">交易系统状态</h6>
+                                <small class="text-muted" id="system-status">已停止</small>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="status-indicator bg-info me-3"></div>
+                            <div>
+                                <h6 class="mb-0">市场监控</h6>
+                                <small class="text-muted">运行中</small>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="status-indicator bg-warning me-3"></div>
+                            <div>
+                                <h6 class="mb-0">风险控制</h6>
+                                <small class="text-muted">启用</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 快速操作 -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-bolt me-2"></i>快速操作</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3 text-center">
+                                <button class="btn btn-success btn-lg w-100" onclick="startSystem()">
+                                    <i class="fas fa-play me-2"></i>启动系统
+                                </button>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <button class="btn btn-danger btn-lg w-100" onclick="stopSystem()">
+                                    <i class="fas fa-stop me-2"></i>停止系统
+                                </button>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <a href="/trading" class="btn btn-primary btn-lg w-100">
+                                    <i class="fas fa-exchange-alt me-2"></i>进入交易
+                                </a>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <a href="/dashboard" class="btn btn-info btn-lg w-100">
+                                    <i class="fas fa-tachometer-alt me-2"></i>查看仪表板
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 市场概览 -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5><i class="fas fa-globe me-2"></i>市场概览</h5>
+                        <small class="text-muted">实时更新</small>
+                    </div>
+                    <div class="card-body">
+                        <div class="row" id="market-overview">
+                            <!-- 市场数据将通过JavaScript动态加载 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    <script>
+        // 连接WebSocket
+        const socket = io();
+
+        // 系统状态更新
+        socket.on('status_update', function(data) {
+            updateStatusDisplay(data);
+        });
+
+        // 投资组合更新
+        socket.on('portfolio_update', function(data) {
+            updatePortfolioDisplay(data);
+        });
+
+        // 市场数据更新
+        socket.on('market_update', function(data) {
+            updateMarketDisplay(data);
+        });
+
+        // 系统控制函数
+        function startSystem() {
+            fetch('/api/control/start')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('系统启动成功');
+                    } else {
+                        alert('系统启动失败: ' + data.error);
+                    }
+                });
+        }
+
+        function stopSystem() {
+            fetch('/api/control/stop')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('系统停止成功');
+                    } else {
+                        alert('系统停止失败: ' + data.error);
+                    }
+                });
+        }
+
+        // 更新状态显示
+        function updateStatusDisplay(data) {
+            document.getElementById('portfolio-value').textContent =
+                '¥' + data.portfolio_value.toLocaleString('zh-CN', {minimumFractionDigits: 2});
+            document.getElementById('daily-pnl').textContent =
+                (data.daily_pnl >= 0 ? '+' : '') + '¥' + data.daily_pnl.toLocaleString('zh-CN', {minimumFractionDigits: 2});
+            document.getElementById('positions-count').textContent = data.positions_count;
+            document.getElementById('orders-count').textContent = data.orders_count;
+            document.getElementById('alerts-count').textContent = data.alerts_count;
+            document.getElementById('system-status').textContent =
+                data.status === 'running' ? '运行中' : '已停止';
+        }
+
+        // 更新投资组合显示
+        function updatePortfolioDisplay(data) {
+            updateStatusDisplay(data);
+        }
+
+        // 更新市场显示
+        function updateMarketDisplay(data) {
+            const container = document.getElementById('market-overview');
+            const marketData = data.market_data;
+
+            let html = '';
+            for (const [symbol, info] of Object.entries(marketData)) {
+                const changeClass = info.change >= 0 ? 'text-success' : 'text-danger';
+                html += `
+                    <div class="col-md-2 col-sm-4 col-6 mb-3">
+                        <div class="card border-0 bg-light">
+                            <div class="card-body text-center p-2">
+                                <h6 class="mb-1">${symbol}</h6>
+                                <div class="fw-bold">${info.price}</div>
+                                <small class="${changeClass}">
+                                    ${info.change >= 0 ? '+' : ''}${info.change} (${info.change_percent}%)
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            container.innerHTML = html;
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 请求初始数据
+            socket.emit('request_update', {type: 'all'});
+        });
+
+        // 更新当前时间
+        setInterval(function() {
+            document.getElementById('current-time').textContent =
+                new Date().toLocaleString('zh-CN');
+        }, 1000);
+    </script>
+</body>
+</html>

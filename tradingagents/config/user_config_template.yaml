@@ -1,0 +1,308 @@
+# TradingAgents 用户配置文件模板
+# 复制此文件为 user_config.yaml 并根据需要修改配置
+
+version: "2.0.0"
+environment: "development"
+
+# ============================================================================
+# 自动化交易配置
+# ============================================================================
+trading:
+  # 监控股票池 - 请根据需要修改
+  watchlist:
+    - "AAPL"        # 苹果公司
+    - "GOOGL"       # Alphabet (谷歌母公司)
+    - "MSFT"        # 微软公司
+    - "000858.SZ"   # 五粮液 (A 股示例)
+    - "600519.SS"   # 贵州茅台 (A 股示例)
+
+  # 初始资金 (人民币)
+  initial_cash: 100000.0
+
+  # 分析间隔 (分钟) - 建议 15-60 分钟之间
+  analysis_interval: 30
+
+  # 风险检查间隔 (分钟) - 建议 5-15 分钟之间
+  risk_check_interval: 5
+
+  # 功能开关
+  enable_auto_trading: true
+  enable_risk_management: true
+  enable_monitoring: true
+
+# ============================================================================
+# 经纪商配置
+# ============================================================================
+broker:
+  # 华泰证券配置 - 请填入真实信息
+  huatai:
+    enabled: false              # 是否启用华泰证券
+    app_key: "YOUR_APP_KEY"     # 华泰证券应用密钥，从华泰证券获取
+    app_secret: "YOUR_APP_SECRET" # 华泰证券应用秘钥，从华泰证券获取
+    account_id: "YOUR_ACCOUNT_ID" # 华泰证券资金账户
+    password: "YOUR_PASSWORD"   # 华泰证券交易密码
+    sandbox: true               # 生产环境请设为 false
+
+  # 广发证券配置 - 请填入真实信息
+  guangfa:
+    enabled: false              # 是否启用广发证券
+    app_key: "YOUR_APP_KEY"     # 广发证券应用密钥，从广发证券获取
+    app_secret: "YOUR_APP_SECRET" # 广发证券应用秘钥，从广发证券获取
+    account_id: "YOUR_ACCOUNT_ID" # 广发证券资金账户
+    password: "YOUR_PASSWORD"   # 广发证券交易密码
+
+  # 默认经纪商 - 可选择 huatai 或 guangfa
+  default_broker: "huatai"
+
+# ============================================================================
+# 技术分析配置
+# ============================================================================
+technical_analysis:
+  # 回望周期 (天) - 用于计算历史指标
+  lookback_period: 100
+
+  # 功能开关
+  enable_advanced_indicators: true
+  enable_pattern_recognition: true
+
+  # 信号阈值 - 信号强度超过此值才触发交易 (0.0-1.0)
+  signal_threshold: 0.6
+
+  # 趋势指标配置 - 可根据需要调整参数
+  trend_indicators:
+    sma_periods: [5, 10, 20, 30, 60]    # 简单移动平均线周期
+    ema_periods: [5, 10, 20, 30, 60]    # 指数移动平均线周期
+    macd:
+      fast: 12     # 快速 EMA 周期
+      slow: 26     # 慢速 EMA 周期
+      signal: 9    # 信号线 EMA 周期
+    adx_period: 14  # ADX 周期
+    ichimoku: true  # 是否启用一目均衡表
+
+  # 动量指标配置
+  momentum_indicators:
+    rsi_period: 14      # RSI 周期
+    stoch_k: 14         # 随机指标 K 值周期
+    stoch_d: 3          # 随机指标 D 值周期
+    williams_r: 14      # Williams %R 周期
+    cci_period: 20      # CCI 周期
+    mfi_period: 14      # MFI 周期
+
+  # 波动率指标配置
+  volatility_indicators:
+    bb_period: 20       # 布林带周期
+    bb_std: 2           # 布林带标准差倍数
+    atr_period: 14      # ATR 周期
+    natr_period: 14     # NATR 周期
+
+  # 成交量指标配置
+  volume_indicators:
+    volume_sma: 20      # 成交量移动平均周期
+    volume_roc: 12      # 成交量变化率周期
+    obv: true           # 是否启用 OBV 指标
+    vwap: true          # 是否启用 VWAP 指标
+
+# ============================================================================
+# Web界面配置
+# ============================================================================
+web_interface:
+  # 服务器配置
+  host: "localhost"    # 监听地址，生产环境可设为 "0.0.0.0"
+  port: 5000           # 监听端口
+  debug: false         # 是否启用调试模式，生产环境设为 false
+
+  # CORS配置 (跨域资源共享)
+  enable_cors: true
+  cors_origins: ["*"]  # 允许的源，生产环境请设为具体域名
+
+  # 更新间隔 (毫秒) - 控制实时更新频率
+  update_intervals:
+    market_data: 5000      # 市场数据更新间隔
+    portfolio: 10000       # 投资组合更新间隔
+    orders: 2000          # 订单更新间隔
+    alerts: 3000          # 预警更新间隔
+
+# ============================================================================
+# 邮件通知配置
+# ============================================================================
+email_notification:
+  # 基本配置 - 请填入真实邮箱信息
+  enabled: false                    # 是否启用邮件通知
+  smtp_server: "smtp.qq.com"        # SMTP 服务器，可选：
+                                   # - smtp.qq.com (QQ邮箱)
+                                   # - smtp.163.com (网易邮箱)
+                                   # - smtp.sina.com (新浪邮箱)
+  smtp_port: 587                   # SMTP 端口，通常为 587 或 465
+  email_user: "your_email@qq.com"   # 发件人邮箱
+  email_password: "your_password"   # 邮箱密码或授权码
+  use_tls: true                    # 是否使用 TLS 加密
+  sender_name: "TradingAgents"     # 发件人名称
+
+  # 通知类型开关 - 可根据需要开启或关闭
+  notifications:
+    trade_alerts: true        # 交易提醒 - 交易信号生成时通知
+    risk_alerts: true         # 风险预警 - 风险事件发生时通知
+    daily_reports: true       # 每日报告 - 每日交易总结
+    system_notifications: true # 系统通知 - 系统状态变化通知
+    error_notifications: true  # 错误通知 - 系统错误提醒
+
+  # 收件人列表 - 可添加多个邮箱
+  recipients:
+    - "your_email@example.com"  # 请替换为实际收件人邮箱
+
+# ============================================================================
+# 风险管理配置
+# ============================================================================
+risk_management:
+  # 持仓限制 - 防止单一股票持仓过重
+  max_position_per_stock: 20000.0    # 单股最大持仓价值 (人民币)
+
+  # 风险敞口限制 - 控制整体风险水平
+  max_portfolio_risk: 0.25           # 投资组合最大风险比例 (25%)
+
+  # 亏损限制 - 防止单日亏损过大
+  max_daily_loss: 0.03               # 单日最大亏损比例 (3%)
+
+  # 止损止盈比例 - 自动风险控制
+  stop_loss_ratio: 0.08              # 止损比例 (8%) - 亏损超过此比例自动卖出
+  take_profit_ratio: 0.25            # 止盈比例 (25%) - 盈利超过此比例自动卖出
+
+  # 订单限制 - 防止过度交易
+  max_orders_per_day: 20             # 单日最大订单数量
+  min_order_interval: 60             # 最小下单间隔 (秒)
+
+  # 高级风控选项
+  enable_dynamic_stop_loss: true     # 启用动态止损 - 根据市场情况调整止损价位
+  enable_trailing_stop: false        # 启用追踪止损 - 股价上涨时上调止损价位
+  trailing_stop_ratio: 0.05          # 追踪止损比例 (5%)
+
+# ============================================================================
+# 日志配置
+# ============================================================================
+logging:
+  level: "INFO"           # 日志级别: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  file_path: "logs/tradingagents.log"
+  max_file_size: 10485760    # 单个日志文件最大大小 (10MB)
+  backup_count: 5            # 日志文件备份数量
+  enable_console: true       # 是否输出到控制台
+  enable_file: true          # 是否写入文件
+
+# ============================================================================
+# 数据库配置
+# ============================================================================
+database:
+  enabled: false          # 是否启用数据库
+  type: "sqlite"          # 数据库类型: sqlite, postgresql, mysql
+  url: "sqlite:///tradingagents.db"  # 数据库连接URL
+
+  # PostgreSQL配置 (当type为postgresql时使用)
+  postgresql:
+    host: "localhost"
+    port: 5432
+    database: "tradingagents"
+    user: "postgres"
+    password: ""
+
+# ============================================================================
+# 多智能体LLM供应商配置
+# ============================================================================
+llm:
+  # 全局默认配置
+  default:
+    provider: "openai"                # LLM供应商: openai, anthropic, google, ollama
+    model: "gpt-4o-mini"             # 模型名称
+    backend_url: "https://api.openai.com/v1"  # API地址
+    temperature: 0.7                 # 创造性 (0.0-1.0)
+    max_tokens: 4096                 # 最大token数
+    top_p: 1.0                       # 核采样参数
+    frequency_penalty: 0.0           # 频率惩罚
+    presence_penalty: 0.0            # 存在惩罚
+    max_requests_per_minute: 60      # 每分钟最大请求数
+    timeout: 30                      # 请求超时 (秒)
+    max_retries: 3                   # 最大重试次数
+    enabled: true                    # 是否启用
+
+  # 研究员配置 - 适合深度思考的模型
+  researchers:
+    provider: "openai"
+    model: "o1-preview"              # 适合深度分析的研究员
+    temperature: 0.8                 # 更高的创造性
+    max_tokens: 4096
+    timeout: 60                      # 更长的思考时间
+
+  # 分析师配置 - 适合快速分析的模型
+  analysts:
+    provider: "openai"
+    model: "gpt-4o"                  # 快速准确的分析模型
+    temperature: 0.3                 # 更保守的分析
+    max_tokens: 2048
+    timeout: 25
+
+  # 交易员配置 - 平衡决策模型
+  trader:
+    provider: "openai"
+    model: "gpt-4o"
+    temperature: 0.2                 # 谨慎决策
+    max_tokens: 2048
+
+  # 风险管理配置 - 保守决策模型
+  risk_manager:
+    provider: "openai"
+    model: "gpt-4o"
+    temperature: 0.1                 # 非常保守
+    max_tokens: 2048
+
+  # 具体智能体配置
+  market_analyst:
+    provider: "openai"
+    model: "gpt-4o-mini"             # 成本优化的快速分析
+    temperature: 0.4
+
+  bull_researcher:
+    provider: "openai"
+    model: "o1-preview"              # 深度思考看涨分析
+    temperature: 0.7
+
+  bear_researcher:
+    provider: "openai"
+    model: "o1-preview"              # 深度思考看跌分析
+    temperature: 0.7
+
+# ============================================================================
+# 使用说明
+# ============================================================================
+#
+# 1. 配置步骤:
+#    - 复制此文件为 user_config.yaml
+#    - 根据实际情况修改各项配置
+#    - 特别注意填入真实的经纪商API凭证和邮箱信息
+#
+# 2. 经纪商配置说明:
+#    - 从对应券商官网申请API访问权限
+#    - 获取 app_key 和 app_secret
+#    - 填入正确的账户ID和交易密码
+#    - 沙箱环境用于测试，生产环境设 sandbox: false
+#
+# 3. 多LLM供应商配置说明:
+#    - 为不同智能体分配最适合的LLM模型
+#    - 研究员适合 o1-preview 等深度思考模型
+#    - 分析师适合 gpt-4o 等快速响应模型
+#    - 风险管理适合保守参数设置
+#    - 可灵活调整温度、token限制等参数
+#
+# 4. 邮箱配置说明:
+#    - 使用支持SMTP的邮箱服务商
+#    - QQ邮箱需要开启SMTP服务并获取授权码
+#    - 确保邮箱安全设置允许第三方应用访问
+#
+# 5. 风险控制说明:
+#    - 根据个人风险偏好调整各项参数
+#    - 建议从小资金开始测试
+#    - 实盘前请进行充分的回测验证
+#
+# 6. Web界面配置说明:
+#    - 生产环境建议设置特定监听地址和端口
+#    - CORS配置应设为具体域名而非通配符
+#    - 更新间隔影响系统负载，根据需要调整
+#
+# ============================================================================

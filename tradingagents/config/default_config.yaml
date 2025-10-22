@@ -1,0 +1,310 @@
+# TradingAgents 默认配置文件
+# 这是系统默认配置，不要修改此文件，请复制为 user_config.yaml 进行自定义配置
+
+version: "2.0.0"
+environment: "development"
+
+# 自动化交易配置
+trading:
+  # 监控股票池
+  watchlist:
+    - "AAPL"
+    - "GOOGL"
+    - "MSFT"
+    - "000858.SZ"  # 五粮液
+    - "600519.SS"  # 贵州茅台
+
+  # 初始资金 (人民币)
+  initial_cash: 100000.0
+
+  # 分析间隔 (分钟)
+  analysis_interval: 30
+
+  # 风险检查间隔 (分钟)
+  risk_check_interval: 5
+
+  # 功能开关
+  enable_auto_trading: true
+  enable_risk_management: true
+  enable_monitoring: true
+
+# 经纪商配置
+broker:
+  # 华泰证券配置
+  huatai:
+    enabled: false  # 是否启用华泰证券
+    app_key: ""     # 华泰证券应用密钥
+    app_secret: ""  # 华泰证券应用秘钥
+    account_id: ""  # 华泰证券资金账户
+    password: ""    # 华泰证券交易密码
+    sandbox: true   # 是否使用沙箱环境
+
+  # 广发证券配置
+  guangfa:
+    enabled: false  # 是否启用广发证券
+    app_key: ""     # 广发证券应用密钥
+    app_secret: ""  # 广发证券应用秘钥
+    account_id: ""  # 广发证券资金账户
+    password: ""    # 广发证券交易密码
+
+  # 默认经纪商
+  default_broker: "huatai"
+
+# 技术分析配置
+technical_analysis:
+  # 回望周期 (天)
+  lookback_period: 100
+
+  # 功能开关
+  enable_advanced_indicators: true
+  enable_pattern_recognition: true
+
+  # 信号阈值
+  signal_threshold: 0.6
+
+  # 趋势指标配置
+  trend_indicators:
+    sma_periods: [5, 10, 20, 30, 60]
+    ema_periods: [5, 10, 20, 30, 60]
+    macd:
+      fast: 12
+      slow: 26
+      signal: 9
+    adx_period: 14
+    ichimoku: true
+
+  # 动量指标配置
+  momentum_indicators:
+    rsi_period: 14
+    stoch_k: 14
+    stoch_d: 3
+    williams_r: 14
+    cci_period: 20
+    mfi_period: 14
+
+  # 波动率指标配置
+  volatility_indicators:
+    bb_period: 20
+    bb_std: 2
+    atr_period: 14
+    natr_period: 14
+
+  # 成交量指标配置
+  volume_indicators:
+    volume_sma: 20
+    volume_roc: 12
+    obv: true
+    vwap: true
+
+# Web界面配置
+web_interface:
+  # 服务器配置
+  host: "localhost"
+  port: 5000
+  debug: false
+
+  # CORS配置
+  enable_cors: true
+  cors_origins: ["*"]
+
+  # WebSocket配置
+  websocket_ping_interval: 25
+  websocket_ping_timeout: 60
+
+  # 更新间隔 (毫秒)
+  update_intervals:
+    market_data: 5000      # 市场数据更新间隔
+    portfolio: 10000       # 投资组合更新间隔
+    orders: 2000          # 订单更新间隔
+    alerts: 3000          # 预警更新间隔
+
+# 邮件通知配置
+email_notification:
+  # 基本配置
+  enabled: false  # 是否启用邮件通知
+  smtp_server: "smtp.qq.com"
+  smtp_port: 587
+  email_user: ""          # 发件人邮箱
+  email_password: ""      # 邮箱密码或授权码
+  use_tls: true
+  sender_name: "TradingAgents"
+
+  # 通知类型开关
+  notifications:
+    trade_alerts: true        # 交易提醒
+    risk_alerts: true         # 风险预警
+    daily_reports: true       # 每日报告
+    system_notifications: true # 系统通知
+    error_notifications: true  # 错误通知
+
+  # 收件人列表
+  recipients: []
+
+# 风险管理配置
+risk_management:
+  # 持仓限制
+  max_position_per_stock: 20000.0    # 单股最大持仓价值 (人民币)
+
+  # 风险敞口限制
+  max_portfolio_risk: 0.25           # 投资组合最大风险比例 (25%)
+
+  # 亏损限制
+  max_daily_loss: 0.03               # 单日最大亏损比例 (3%)
+
+  # 止损止盈比例
+  stop_loss_ratio: 0.08              # 止损比例 (8%)
+  take_profit_ratio: 0.25            # 止盈比例 (25%)
+
+  # 订单限制
+  max_orders_per_day: 20             # 单日最大订单数量
+  min_order_interval: 60             # 最小下单间隔 (秒)
+
+  # 高级风控选项
+  enable_dynamic_stop_loss: true     # 启用动态止损
+  enable_trailing_stop: false        # 启用追踪止损
+  trailing_stop_ratio: 0.05          # 追踪止损比例 (5%)
+
+# 日志配置
+logging:
+  level: "INFO"
+  file_path: "logs/tradingagents.log"
+  max_file_size: 10485760    # 10MB
+  backup_count: 5
+  enable_console: true
+  enable_file: true
+
+# 数据库配置
+database:
+  enabled: false
+  type: "sqlite"
+  url: "sqlite:///tradingagents.db"
+
+  # PostgreSQL配置 (当type为postgresql时使用)
+  postgresql:
+    host: "localhost"
+    port: 5432
+    database: "tradingagents"
+    user: "postgres"
+    password: ""
+
+# 多智能体LLM配置
+llm:
+  # 全局默认配置
+  default:
+    provider: "openai"
+    model: "gpt-4o-mini"
+    backend_url: "https://api.openai.com/v1"
+    temperature: 0.7
+    max_tokens: 4096
+    top_p: 1.0
+    frequency_penalty: 0.0
+    presence_penalty: 0.0
+    max_requests_per_minute: 60
+    timeout: 30
+    max_retries: 3
+    enabled: true
+
+  # 分析师团队配置 - 适合分析任务的快速模型
+  analysts:
+    provider: "openai"
+    model: "gpt-4o"
+    temperature: 0.3
+    max_tokens: 2048
+    timeout: 25
+
+  # 研究员团队配置 - 适合深度思考的模型
+  researchers:
+    provider: "openai"
+    model: "o1-preview"
+    temperature: 0.8
+    max_tokens: 4096
+    timeout: 60
+
+  # 交易员配置 - 平衡决策模型
+  trader:
+    provider: "openai"
+    model: "gpt-4o"
+    temperature: 0.2
+    max_tokens: 2048
+    timeout: 25
+
+  # 风险管理配置 - 保守决策模型
+  risk_manager:
+    provider: "openai"
+    model: "gpt-4o"
+    temperature: 0.1
+    max_tokens: 2048
+    timeout: 25
+
+  # 具体分析师配置
+  market_analyst:
+    provider: "openai"
+    model: "gpt-4o-mini"
+    temperature: 0.4
+    max_tokens: 2048
+
+  fundamentals_analyst:
+    provider: "openai"
+    model: "gpt-4o"
+    temperature: 0.3
+    max_tokens: 2048
+
+  news_analyst:
+    provider: "openai"
+    model: "gpt-4o-mini"
+    temperature: 0.4
+    max_tokens: 2048
+
+  social_media_analyst:
+    provider: "openai"
+    model: "gpt-4o-mini"
+    temperature: 0.4
+    max_tokens: 2048
+
+  # 研究员配置
+  bull_researcher:
+    provider: "openai"
+    model: "o1-preview"
+    temperature: 0.7
+    max_tokens: 4096
+    timeout: 60
+
+  bear_researcher:
+    provider: "openai"
+    model: "o1-preview"
+    temperature: 0.7
+    max_tokens: 4096
+    timeout: 60
+
+  # 经理配置
+  research_manager:
+    provider: "openai"
+    model: "o1-preview"
+    temperature: 0.5
+    max_tokens: 4096
+    timeout: 60
+
+  risk_judge:
+    provider: "openai"
+    model: "gpt-4o"
+    temperature: 0.1
+    max_tokens: 2048
+
+  # 风险分析师配置
+  risky_analyst:
+    provider: "openai"
+    model: "gpt-4o-mini"
+    temperature: 0.6
+    max_tokens: 2048
+
+  safe_analyst:
+    provider: "openai"
+    model: "gpt-4o-mini"
+    temperature: 0.2
+    max_tokens: 2048
+
+  neutral_analyst:
+    provider: "openai"
+    model: "gpt-4o-mini"
+    temperature: 0.4
+    max_tokens: 2048

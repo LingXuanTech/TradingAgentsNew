@@ -25,39 +25,73 @@
 
 ---
 
-# TradingAgents: Multi-Agents LLM Financial Trading Framework 
+# TradingAgents: 多智能体LLM智能交易平台
 
-> 🎉 **TradingAgents** officially released! We have received numerous inquiries about the work, and we would like to express our thanks for the enthusiasm in our community.
+> 🎉 **TradingAgents v2.0** 正式发布！感谢社区的热情支持，我们决定完全开源这个先进的智能交易框架。
 >
-> So we decided to fully open-source the framework. Looking forward to building impactful projects with you!
+> 新版本带来了革命性的多LLM供应商支持、企业级前端界面、生产就绪的完整解决方案！
 
 <div align="center">
 <a href="https://www.star-history.com/#TauricResearch/TradingAgents&Date">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=TauricResearch/TradingAgents&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=TauricResearch/TradingAgents&type=Date" />
-   <img alt="TradingAgents Star History" src="https://api.star-history.com/svg?repos=TauricResearch/TradingAgents&type=Date" style="width: 80%; height: auto;" />
- </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=TauricResearch/TradingAgents&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=TauricResearch/TradingAgents&type=Date" />
+    <img alt="TradingAgents Star History" src="https://api.star-history.com/svg?repos=TauricResearch/TradingAgents&type=Date" style="width: 80%; height: auto;" />
+  </picture>
 </a>
 </div>
 
 <div align="center">
 
-🚀 [TradingAgents](#tradingagents-framework) | ⚡ [Installation & CLI](#installation-and-cli) | 🎬 [Demo](https://www.youtube.com/watch?v=90gr5lwjIho) | 📦 [Package Usage](#tradingagents-package) | 🤝 [Contributing](#contributing) | 📄 [Citation](#citation)
+🚀 [快速开始](#快速开始) | 📊 [核心功能](#核心功能) | ⚙️ [安装配置](#安装配置) | 🌐 [双前端界面](#双前端界面) | 🤖 [多LLM系统](#多llm系统) | 🏦 [经纪商集成](#经纪商集成) | 📚 [完整手册](#完整手册)
 
 </div>
 
-## TradingAgents Framework
+## 🎯 核心功能概览
 
-TradingAgents is a multi-agent trading framework that mirrors the dynamics of real-world trading firms. By deploying specialized LLM-powered agents: from fundamental analysts, sentiment experts, and technical analysts, to trader, risk management team, the platform collaboratively evaluates market conditions and informs trading decisions. Moreover, these agents engage in dynamic discussions to pinpoint the optimal strategy.
+TradingAgents是一个革命性的多智能体LLM智能交易平台，具备以下核心特性：
+
+### 🤖 多智能体协作系统
+- **分析师团队**: 技术分析、基本面分析、新闻分析、社交媒体情绪分析
+- **研究员团队**: 看涨/看跌研究员辩论，形成投资共识
+- **决策团队**: 交易员制定策略，风险管理审核决策
+- **智能分工**: 每个智能体专注于特定领域，优势互补
+
+### 🚀 多LLM供应商支持
+- **个性化配置**: 为每个智能体分配最适合的LLM模型
+- **供应商多样性**: 支持OpenAI、Anthropic、Google、本地部署等
+- **智能分配**: 研究员用o1-preview深度思考，分析师用gpt-4o快速分析
+- **企业级监控**: LLM性能监控、成本控制、故障恢复
+
+### 🌐 双前端界面选择
+- **Streamlit现代化界面**: shadcn/ui组件，交互丰富
+- **Flask专业界面**: 传统Web界面，稳定可靠
+- **实时数据更新**: WebSocket毫秒级数据推送
+- **响应式设计**: 完美适配桌面、平板、手机
+
+### 📊 高级技术分析
+- **40+技术指标**: 趋势、动量、波动率、成交量全覆盖
+- **智能信号生成**: 自动生成买卖信号和投资建议
+- **形态识别**: 自动识别经典技术形态
+- **多数据源**: Alpha Vantage、yfinance、Google News等
+
+### 🏦 经纪商API集成
+- **多平台支持**: 华泰证券、广发证券等主流券商
+- **沙箱测试**: 安全的测试环境，保护真实资金
+- **异步架构**: 高性能非阻塞API调用
+- **统一接口**: 标准化经纪商接口，易于扩展
+
+### ⏰ 自动化交易引擎
+- **定时调度**: 灵活的交易时间和频率配置
+- **市场监控**: 实时价格监控和异常检测
+- **风险控制**: 多层次风险管理和止损机制
+- **邮件通知**: 交易提醒、风险预警、日报表
 
 <p align="center">
   <img src="assets/schema.png" style="width: 100%; height: auto;">
 </p>
 
-> TradingAgents framework is designed for research purposes. Trading performance may vary based on many factors, including the chosen backbone language models, model temperature, trading periods, the quality of data, and other non-deterministic factors. [It is not intended as financial, investment, or trading advice.](https://tauric.ai/disclaimer/)
-
-Our framework decomposes complex trading tasks into specialized roles. This ensures the system achieves a robust, scalable approach to market analysis and decision-making.
+> ⚠️ **重要声明**: TradingAgents框架专为研究目的而设计。交易性能受多种因素影响，包括所选语言模型、模型温度、交易周期、数据质量等非确定性因素。[本系统不作为金融、投资或交易建议使用。](https://tauric.ai/disclaimer/)
 
 ### Analyst Team
 - Fundamentals Analyst: Evaluates company financials and performance metrics, identifying intrinsic values and potential red flags.
@@ -111,6 +145,89 @@ Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
+
+### Configuration Setup
+
+TradingAgents uses a unified configuration system for easy management:
+
+1. **Copy configuration template:**
+```bash
+cp tradingagents/config/user_config_template.yaml tradingagents/config/user_config.yaml
+```
+
+2. **Edit configuration:**
+```bash
+# Edit the user_config.yaml file with your settings
+nano tradingagents/config/user_config.yaml
+```
+
+3. **Configure API credentials:**
+   - Add your broker API keys (Huatai, Guangfa, etc.)
+   - Set up email notification settings
+   - Configure multi-agent LLM settings
+   - Customize trading parameters and risk management rules
+
+4. **Validate configuration:**
+```python
+from tradingagents.config.config_manager import validate_config
+errors = validate_config()
+if errors:
+    print("Configuration errors:", errors)
+else:
+    print("Configuration is valid!")
+```
+
+### Multi-Agent LLM Configuration
+
+TradingAgents supports different LLM providers for different agents:
+
+```yaml
+llm:
+  # Researchers use o1-preview for deep thinking
+  researchers:
+    provider: "openai"
+    model: "o1-preview"
+    temperature: 0.8
+    max_tokens: 4096
+
+  # Analysts use gpt-4o for fast analysis
+  analysts:
+    provider: "openai"
+    model: "gpt-4o"
+    temperature: 0.3
+    max_tokens: 2048
+
+  # Risk managers use conservative settings
+  risk_manager:
+    provider: "openai"
+    model: "gpt-4o"
+    temperature: 0.1
+    max_tokens: 2048
+```
+
+Supported providers: OpenAI, Anthropic, Google, Ollama, OpenRouter
+
+### Modern Web Interface (Streamlit + shadcn/ui)
+
+TradingAgents now includes a modern web interface built with Streamlit and shadcn/ui:
+
+```bash
+# Launch the modern web interface
+python tradingagents/streamlit_app/run.py
+
+# Or run directly with streamlit
+streamlit run tradingagents/streamlit_app/app.py
+```
+
+**Features:**
+- 🎨 Modern UI with shadcn/ui components
+- 📊 Real-time trading dashboard
+- 💹 Interactive trading interface
+- 🛡️ Risk management panel
+- 📈 Technical analysis charts
+- ⚙️ System configuration panel
+
+**Access:** http://localhost:8501
 
 ### Required APIs
 
