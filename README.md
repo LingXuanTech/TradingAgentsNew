@@ -43,7 +43,7 @@
 
 <div align="center">
 
-🚀 [TradingAgents](#tradingagents-framework) | ⚡ [Installation & CLI](#installation-and-cli) | 🎬 [Demo](https://www.youtube.com/watch?v=90gr5lwjIho) | 📦 [Package Usage](#tradingagents-package) | 🤝 [Contributing](#contributing) | 📄 [Citation](#citation)
+🚀 [TradingAgents](#tradingagents-framework) | ⚡ [Installation & CLI](#installation-and-cli) | 📊 [Web Dashboard](#web-dashboard) | 🎬 [Demo](https://www.youtube.com/watch?v=90gr5lwjIho) | 📦 [Package Usage](#tradingagents-package) | 🤝 [Contributing](#contributing) | 📄 [Citation](#citation)
 
 </div>
 
@@ -150,6 +150,32 @@ An interface will appear showing results as they load, letting you track the age
 <p align="center">
   <img src="assets/cli/cli_transaction.png" width="100%" style="display: inline-block; margin: 0 2%;">
 </p>
+
+## Web Dashboard
+
+We also provide a modern web dashboard built with Streamlit for users who prefer a graphical interface.
+
+### Quick Start
+
+```bash
+pip install -r requirements.txt
+streamlit run web_app.py
+```
+
+Or use the helper script (auto-creates a venv if missing):
+
+```bash
+./start_webapp.sh
+```
+
+The dashboard includes:
+
+- 📊 **Overview Dashboard** – system status, trading history, and agent architecture
+- ⚙️ **LLM Configuration** – choose providers/models, tune debate rounds, manage data vendors, and configure API keys
+- 🚀 **Trading Execution** – run analyses, monitor progress, and review the full multi-agent decision report
+- 📈 **Results Viewer** – browse historical runs, filter by ticker/date, and export JSON results
+
+See [WEB_APP_README.md](./WEB_APP_README.md) for a full feature guide.
 
 ## TradingAgents Package
 
