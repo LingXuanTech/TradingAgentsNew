@@ -7,6 +7,7 @@ TradingAgents Streamlit前端启动脚本
 import os
 import sys
 import logging
+import subprocess
 from pathlib import Path
 
 # 添加项目根目录到Python路径
@@ -37,6 +38,9 @@ def run_streamlit_app():
 
         # 运行主函数（Streamlit会接管控制流）
         main()
+        # 使用streamlit命令行运行应用
+        app_path = Path(__file__).parent / "app.py"
+        subprocess.run(["streamlit", "run", str(app_path)], check=True)
 
     except KeyboardInterrupt:
         logger.info("用户中断，正在停止服务...")

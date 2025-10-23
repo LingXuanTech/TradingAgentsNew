@@ -123,8 +123,8 @@ def create_home_page():
     with col1:
         ui.metric_card(
             title="总资产价值",
-            content=f"¥{st.session_state.portfolio_data['total_value']:,.",.2f"
-            description=f"+¥{st.session_state.portfolio_data['daily_pnl']:,.2f"}今日",
+            content=f"¥{st.session_state.portfolio_data['total_value']:,.2f}",
+            description=f"+¥{st.session_state.portfolio_data['daily_pnl']:,.2f} 今日",
             key="portfolio_metric"
         )
 
