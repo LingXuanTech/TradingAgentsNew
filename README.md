@@ -176,6 +176,29 @@ The dashboard includes:
 - 📈 **Results Viewer** – browse historical runs, filter by ticker/date, and export JSON results
 
 See [WEB_APP_README.md](./WEB_APP_README.md) for a full feature guide.
+### Streamlit Web Interface
+
+TradingAgents now includes a modern Streamlit-based web interface for a richer interactive experience:
+
+```bash
+# Start the Streamlit web interface
+python tradingagents/streamlit_app/run.py
+
+# Or use streamlit directly
+streamlit run tradingagents/streamlit_app/app.py
+```
+
+The web interface provides:
+- 🎨 Modern UI with shadcn/ui components
+- 📊 Real-time trading dashboard
+- 💹 Interactive portfolio management
+- 🛡️ Risk control center
+- 📈 Technical analysis tools
+- ⚙️ System configuration
+
+Access the interface at http://localhost:8501 after starting the server.
+
+For more details, see the [Streamlit App README](tradingagents/streamlit_app/README.md).
 
 ## TradingAgents Package
 
