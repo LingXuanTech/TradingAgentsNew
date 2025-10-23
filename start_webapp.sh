@@ -38,6 +38,6 @@ if [ -z "$OPENAI_API_KEY" ] && ! grep -q "OPENAI_API_KEY=" .env 2>/dev/null; the
 fi
 
 # Start the web app
-echo "✅ Starting web dashboard at http://localhost:8501"
+echo "✅ Starting TradingAgents modern web interface at http://localhost:8501"
 echo ""
-streamlit run web_app.py
+streamlit run tradingagents/streamlit_app/app.py

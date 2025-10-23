@@ -4,7 +4,6 @@ TradingAgents Streamlit应用启动器
 """
 
 import streamlit as st
-from main import main
 import sys
 from pathlib import Path
 

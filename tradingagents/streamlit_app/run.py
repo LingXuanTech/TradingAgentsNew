@@ -29,15 +29,10 @@ def run_streamlit_app():
         os.environ['STREAMLIT_SERVER_HEADLESS'] = 'true'
         os.environ['STREAMLIT_BROWSER_GATHER_USAGE_STATS'] = 'false'
 
-        # 导入并运行Streamlit应用
-        from streamlit_app.app import main
-
         logger.info("启动TradingAgents Streamlit前端...")
         logger.info("访问地址: http://localhost:8501")
         logger.info("按 Ctrl+C 停止服务")
 
-        # 运行主函数（Streamlit会接管控制流）
-        main()
         # 使用streamlit命令行运行应用
         app_path = Path(__file__).parent / "app.py"
         subprocess.run(["streamlit", "run", str(app_path)], check=True)

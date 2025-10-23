@@ -268,54 +268,39 @@ An interface will appear showing results as they load, letting you track the age
   <img src="assets/cli/cli_transaction.png" width="100%" style="display: inline-block; margin: 0 2%;">
 </p>
 
-## Web Dashboard
+## Modern Web Interface
 
-We also provide a modern web dashboard built with Streamlit for users who prefer a graphical interface.
+TradingAgents provides a professional web interface built with Streamlit and shadcn/ui components for an intuitive trading experience.
 
 ### Quick Start
 
 ```bash
-pip install -r requirements.txt
-streamlit run web_app.py
-```
-
-Or use the helper script (auto-creates a venv if missing):
-
-```bash
+# Using the startup script
 ./start_webapp.sh
-```
 
-The dashboard includes:
-
-- 📊 **Overview Dashboard** – system status, trading history, and agent architecture
-- ⚙️ **LLM Configuration** – choose providers/models, tune debate rounds, manage data vendors, and configure API keys
-- 🚀 **Trading Execution** – run analyses, monitor progress, and review the full multi-agent decision report
-- 📈 **Results Viewer** – browse historical runs, filter by ticker/date, and export JSON results
-
-See [WEB_APP_README.md](./WEB_APP_README.md) for a full feature guide.
-### Streamlit Web Interface
-
-TradingAgents now includes a modern Streamlit-based web interface for a richer interactive experience:
-
-```bash
-# Start the Streamlit web interface
+# Or directly with Python
 python tradingagents/streamlit_app/run.py
 
-# Or use streamlit directly
+# Or with Streamlit CLI
 streamlit run tradingagents/streamlit_app/app.py
 ```
 
-The web interface provides:
-- 🎨 Modern UI with shadcn/ui components
-- 📊 Real-time trading dashboard
-- 💹 Interactive portfolio management
-- 🛡️ Risk control center
-- 📈 Technical analysis tools
-- ⚙️ System configuration
+### Key Features
 
-Access the interface at http://localhost:8501 after starting the server.
+- 🎨 **Modern UI Design** – Professional shadcn/ui components with dark mode support
+- 📊 **Real-time Dashboard** – Live trading data and portfolio monitoring
+- 💹 **Trading Management** – Quick order placement and position tracking
+- 🛡️ **Risk Control** – Visual risk indicators and alert system
+- 📈 **Technical Analysis** – 40+ indicators with interactive charts
+- ⚙️ **Multi-Agent Configuration** – LLM provider and model settings per agent
 
-For more details, see the [Streamlit App README](tradingagents/streamlit_app/README.md).
+### Access
+
+After starting the server, open your browser and visit:
+- **Local**: http://localhost:8501
+- **Network**: http://your-server-ip:8501
+
+For detailed documentation, see [Streamlit App README](tradingagents/streamlit_app/README.md).
 
 ## TradingAgents Package
 
